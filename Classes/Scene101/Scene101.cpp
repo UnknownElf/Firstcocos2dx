@@ -38,7 +38,16 @@ bool Scene101::init()
 	bkimage->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y)); // 位置通常放置在螢幕正中間
 	this->addChild(bkimage, 0);
 
+
 	// 自行增加 sprite 將 bean01.png 到螢幕正中間
+	_bean = Sprite::create("scene101/bean01.png");  // 使用 create 函式,給予檔名即可
+	_bean->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y)); // 位置通常放置在螢幕正中間
+	_bean->setScale(2);
+	this->addChild(_bean, 0);
+	_isTouched = false;
+	_fangle = 0;
+	
+
 
 
 	// create and initialize a label, add a label shows "Scene 101"
@@ -113,6 +122,14 @@ bool Scene101::init()
 void Scene101::doStep(float dt)  // OnFrameMove
 {
 
+	if (_isTouched) {
+		_fangle += 5;
+	}
+	else {
+		_fangle -= 5;
+	}
+	_bean->setRotation(_fangle);
+
 }
 
 bool  Scene101::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//觸碰開始事件
@@ -128,6 +145,10 @@ bool  Scene101::onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent)//�
 		unscheduleAllCallbacks();
 		Director::getInstance()->end();
 	}
+
+	_isTouched = !_isTouched;
+
+
 
 	return true;
 }

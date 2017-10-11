@@ -16,6 +16,10 @@ private:
 	int  _sceneno;
 	char _cSceneNo[10];
 
+	bool _isTouched;
+	float _fangle;
+	cocos2d::Sprite *_bean;
+
 public:
     static cocos2d::Scene* createScene();
 
